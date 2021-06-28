@@ -28,8 +28,13 @@ public class Chapter2Main {
 //        halfSearch(A, 58, 0, A.length - 1);
 //        System.out.println(flag);
 
+//        int[] A = new int[]{26, 31, 41, 41, 58, 59};
+//        int l = 0, r = A.length - 1, n = 1;
+//        halfSearch(A, n, l, r);
+//        System.out.println(flag);
+
         int[] A = new int[]{26, 31, 41, 41, 58, 59};
-        System.out.println(halfSearch1(A, 1));
+        System.out.println(contains(A, 72));
     }
 
     public static void insertionSort(int[] A) {
@@ -165,17 +170,20 @@ public class Chapter2Main {
 
     public static void halfSearch(int[] A, int n, int l, int r) {
         if (l >= r) {
+            flag = n == A[l];
             return;
         }
+
         int i = (l + r) / 2;
         int key = A[i];
         if (n < key) {
             halfSearch(A, n, l, i);
         } else if (n > key) {
             halfSearch(A, n, i + 1, r);
-        } else {
+        } else if (n == A[i]) {
             flag = true;
         }
+
     }
 
     public static boolean halfSearch1(int[] A, int n) {
@@ -195,7 +203,16 @@ public class Chapter2Main {
             }
         }
 
-        return false;
+        return n == A[l];
     }
 
+    public static boolean contains(int[] A, int n) {
+        for (int i = 0; i < A.length; i++) {
+            int temp = n - A[i];
+            if (halfSearch1(A, temp)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
